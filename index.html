@@ -1,0 +1,757 @@
+<title>G-Construtor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #161616;
+    --border: #1e1e1e;
+    --red: #C0392B;
+    --red-bright: #E74C3C;
+    --red-dim: #7B241C;
+    --text: #F2F2F2;
+    --text-sec: #999;
+    --text-muted: #555;
+    --gold: #D4A843;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(20px, 5vw, 80px);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo {
+    width: 32px;
+    height: 32px;
+    background: var(--red);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: var(--text);
+  }
+
+  .nav-cta {
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--red-bright); }
+
+  /* HERO */
+  .hero {
+    padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(50px, 8vw, 100px);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(192,57,43,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-sec);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero-eyebrow span { color: var(--red-bright); }
+
+  .hero-h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(52px, 9vw, 108px);
+    line-height: 0.92;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    text-wrap: balance;
+    max-width: 900px;
+    margin-bottom: 28px;
+  }
+
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-sec);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-primary:hover { background: var(--red-bright); transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-sec);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+
+  .hero-stats {
+    display: flex;
+    gap: clamp(24px, 4vw, 56px);
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .stat-item { }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); letter-spacing: 0.3px; }
+
+  /* SECTION WRAPPER */
+  .section {
+    padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 80px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .section-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.0;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    text-wrap: balance;
+    margin-bottom: 16px;
+  }
+
+  .section-lead {
+    font-size: 16px;
+    color: var(--text-sec);
+    max-width: 540px;
+    line-height: 1.65;
+    margin-bottom: 52px;
+  }
+
+  /* FEATURES GRID */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .feature-card {
+    background: var(--bg);
+    padding: 28px 24px;
+    transition: background 0.15s;
+  }
+  .feature-card:hover { background: var(--surface); }
+
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.55;
+  }
+
+  /* HOW IT WORKS */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    position: relative;
+  }
+
+  .step {
+    padding: 32px 28px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .step:last-child { border-right: none; }
+
+  @media (max-width: 600px) {
+    .step { border-right: none; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+  }
+
+  .step-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--border);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--text-sec);
+    line-height: 1.6;
+  }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    max-width: 900px;
+  }
+
+  .plan-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    transition: border-color 0.15s;
+  }
+
+  .plan-card:hover { border-color: var(--red-dim); }
+
+  .plan-card.popular {
+    border-color: var(--red);
+    background: linear-gradient(160deg, #1A0808 0%, var(--surface) 100%);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -1px;
+    right: 20px;
+    background: var(--red);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 0 0 6px 6px;
+  }
+
+  .plan-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .plan-save {
+    display: inline-block;
+    background: var(--red-dim);
+    color: #F4A69A;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  .plan-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--text);
+    letter-spacing: -1px;
+    margin-bottom: 4px;
+  }
+
+  .plan-price sub {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0;
+    vertical-align: baseline;
+    position: relative;
+    top: -6px;
+    margin-right: 2px;
+  }
+
+  .plan-period {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .plan-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 20px;
+  }
+
+  .plan-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-sec);
+    margin-bottom: 10px;
+    line-height: 1.45;
+  }
+
+  .plan-check {
+    color: #4CAF50;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .plan-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 24px;
+    padding: 12px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--surface2);
+    color: var(--text-sec);
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+
+  .plan-card.popular .plan-btn {
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
+  }
+
+  .plan-btn:hover { opacity: 0.85; }
+
+  /* DOWNLOAD */
+  .download-section {
+    padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 80px);
+    text-align: center;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .download-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(36px, 6vw, 72px);
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    text-wrap: balance;
+  }
+
+  .download-sub {
+    font-size: 16px;
+    color: var(--text-sec);
+    margin-bottom: 36px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .play-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+
+  .play-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .play-btn-text small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #555;
+    margin-bottom: 1px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px clamp(20px, 5vw, 80px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+</style>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-logo">G</div>
+    <span class="nav-name">G-CONSTRUTOR</span>
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=com.oberdansilveira.garraobrasmobile" class="nav-cta" target="_blank">Baixar grátis</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span>★</span> App para construtores e empreiteiros
+  </div>
+  <h1 class="hero-h1">Gestão de obras<br><em>na palma da mão</em></h1>
+  <p class="hero-sub">
+    Controle etapas, orçamentos, materiais, equipe e contratos de todas as suas obras — direto pelo celular, em qualquer lugar.
+  </p>
+  <div class="hero-actions">
+    <a href="https://play.google.com/store/apps/details?id=com.oberdansilveira.garraobrasmobile" class="btn-primary" target="_blank">
+      ▶ Baixar no Google Play
+    </a>
+    <a href="#planos" class="btn-ghost">Ver planos e preços →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Android</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">R$29,90</div>
+      <div class="stat-label">A partir de / mês</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">IA</div>
+      <div class="stat-label">Análise de plantas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">NBR</div>
+      <div class="stat-label">Normas brasileiras</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="section-eyebrow">Funcionalidades</div>
+  <h2 class="section-h2">Tudo que<br>você precisa</h2>
+  <p class="section-lead">Do início ao fim da obra, o G-Construtor cobre cada etapa do processo construtivo.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🏗</span>
+      <div class="feature-title">Gestão de Obras</div>
+      <div class="feature-desc">Cadastre quantas obras quiser e acompanhe cada uma separadamente. Veja o progresso geral, a data de início e o status atualizado. Nunca mais confunda informações de um canteiro com outro.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📋</span>
+      <div class="feature-title">Etapas e Checklist</div>
+      <div class="feature-desc">Fundação, baldrame, contrapiso, alvenaria, estrutura, cobertura, revestimento, hidráulica, elétrica e acabamento — cada etapa tem seu próprio checklist de tarefas, cronograma de dias e porcentagem de conclusão. Sabe exatamente o que falta e quem é responsável.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🧱</span>
+      <div class="feature-title">Controle de Materiais</div>
+      <div class="feature-desc">Registre cada compra de material com quantidade, unidade e preço. O app mostra o custo total acumulado por obra e por categoria. Nunca mais compre material errado ou perca nota fiscal.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💰</span>
+      <div class="feature-title">Controle Financeiro</div>
+      <div class="feature-desc">Lance receitas (parcelas do cliente) e despesas (materiais, mão de obra, aluguel de equipamento) separadas por obra. Veja o saldo atual, o total gasto e o lucro estimado. Relatório financeiro completo para apresentar ao cliente ou ao contador.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">👷</span>
+      <div class="feature-title">Mão de Obra</div>
+      <div class="feature-desc">Cadastre os funcionários e peões. Registre diárias, horas trabalhadas e pagamentos realizados por etapa da obra. Saiba quanto cada trabalhador recebeu e quanto ainda falta pagar, sem perder o controle da folha.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🛒</span>
+      <div class="feature-title">Compras e Orçamentos</div>
+      <div class="feature-desc">Monte a lista de materiais necessários para cada etapa e compare preços de fornecedores diferentes. Gere um orçamento detalhado com custo total previsto antes de começar — e acompanhe o custo real ao longo da obra.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📄</span>
+      <div class="feature-title">Contratos em PDF</div>
+      <div class="feature-desc">Gere contratos de prestação de serviço profissionais em PDF com os dados da obra, do cliente e os valores combinados. Tudo preenchido automaticamente com as informações já cadastradas no app. Envie pelo WhatsApp ou e-mail na hora.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📐</span>
+      <div class="feature-title">Planta IA</div>
+      <div class="feature-desc">Tire uma foto da planta baixa ou envie o arquivo PDF. A inteligência artificial lê a planta e extrai automaticamente os cômodos, dimensões em metros, área total, perímetro externo e quantidade de sapatas — pronto para usar no orçamento.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🧮</span>
+      <div class="feature-title">Calculadora de Obra</div>
+      <div class="feature-desc">Informe as medidas e o app calcula a quantidade exata de materiais: tijolos, blocos, sacos de cimento, areia, brita, tinta, telhas e muito mais. Fórmulas baseadas nas normas técnicas brasileiras (NBR). Evite desperdício e compra desnecessária.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔔</span>
+      <div class="feature-title">Lembretes e Agenda</div>
+      <div class="feature-desc">Crie lembretes para pagamentos, entregas de material, vistorias e reuniões com clientes. Receba notificações no celular para não perder nenhum compromisso importante da obra.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🏪</span>
+      <div class="feature-title">Marketplace</div>
+      <div class="feature-desc">Acesse fornecedores e prestadores de serviço da sua região diretamente pelo app. Compare preços e contrate quem você precisa sem sair do G-Construtor.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📊</span>
+      <div class="feature-title">Relatórios</div>
+      <div class="feature-desc">Relatórios detalhados de cada obra: progresso por etapa, custo total realizado, comparativo previsto vs. real e resumo financeiro. Mostre para o cliente tudo que foi feito com profissionalismo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-eyebrow">Como funciona</div>
+  <h2 class="section-h2">Simples de usar,<br>poderoso na prática</h2>
+  <div class="steps" style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 48px;">
+    <div class="step">
+      <span class="step-num">01</span>
+      <div class="step-title">Baixe o app</div>
+      <div class="step-desc">Disponível gratuitamente na Google Play Store. Instale em segundos no seu Android.</div>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <div class="step-title">Crie sua obra</div>
+      <div class="step-desc">Cadastre o nome, endereço e tipo de projeto. Adicione etapas e defina o cronograma.</div>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <div class="step-title">Registre tudo</div>
+      <div class="step-desc">Materiais comprados, equipe trabalhando, progresso das etapas e despesas — tudo no celular.</div>
+    </div>
+    <div class="step">
+      <span class="step-num">04</span>
+      <div class="step-title">Acompanhe e entregue</div>
+      <div class="step-desc">Gere relatórios e contratos para apresentar ao cliente. Entregue obras com mais organização e profissionalismo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="planos">
+  <div class="section-eyebrow">Planos</div>
+  <h2 class="section-h2">Sem enrolação,<br>sem letra miúda</h2>
+  <p class="section-lead">Escolha o plano ideal e cancele quando quiser. Sem multas, sem fidelidade.</p>
+
+  <div class="pricing-grid">
+    <!-- Mensal -->
+    <div class="plan-card">
+      <div class="plan-name">Mensal</div>
+      <div class="plan-price"><sub>R$</sub>49<span style="font-size:28px;letter-spacing:0">,90</span></div>
+      <div class="plan-period">por mês · cobrado mensalmente</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Acesso completo a todas as funções</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Obras e etapas ilimitadas</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Contratos em PDF</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Planta IA</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Suporte prioritário</div>
+      <a href="https://play.google.com/store/apps/details?id=com.oberdansilveira.garraobrasmobile" class="plan-btn" target="_blank">Assinar Mensal</a>
+    </div>
+
+    <!-- Semestral -->
+    <div class="plan-card popular">
+      <div class="popular-badge">Mais popular</div>
+      <div class="plan-name">Semestral</div>
+      <span class="plan-save">Economize 20%</span>
+      <div class="plan-price"><sub>R$</sub>39<span style="font-size:28px;letter-spacing:0">,90</span></div>
+      <div class="plan-period">por mês · cobrado R$ 239,40</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Acesso completo a todas as funções</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Obras e etapas ilimitadas</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Contratos em PDF</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Planta IA</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Suporte prioritário</div>
+      <a href="https://play.google.com/store/apps/details?id=com.oberdansilveira.garraobrasmobile" class="plan-btn" target="_blank">Assinar Semestral</a>
+    </div>
+
+    <!-- Anual -->
+    <div class="plan-card">
+      <div class="plan-name">Anual</div>
+      <span class="plan-save">Economize 40%</span>
+      <div class="plan-price"><sub>R$</sub>29<span style="font-size:28px;letter-spacing:0">,90</span></div>
+      <div class="plan-period">por mês · cobrado R$ 358,80</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Acesso completo a todas as funções</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Obras e etapas ilimitadas</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Contratos em PDF</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Planta IA</div>
+      <div class="plan-feature"><span class="plan-check">✓</span> Suporte prioritário</div>
+      <a href="https://play.google.com/store/apps/details?id=com.oberdansilveira.garraobrasmobile" class="plan-btn" target="_blank">Assinar Anual</a>
+    </div>
+  </div>
+
+  <p style="margin-top: 24px; font-size: 13px; color: var(--text-muted);">
+    Pagamento seguro pelo Google Play. Cancele a qualquer momento nas configurações da sua conta.
+  </p>
+</section>
+
+<!-- DOWNLOAD CTA -->
+<section class="download-section">
+  <h2 class="download-h2">Pronto para organizar<br>suas obras?</h2>
+  <p class="download-sub">Baixe agora no Google Play e comece a usar em menos de 2 minutos.</p>
+  <a href="https://play.google.com/store/apps/details?id=com.oberdansilveira.garraobrasmobile" class="play-btn" target="_blank">
+    <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.8l15 8.5c.6.34.6 1.26 0 1.6l-15 8.5c-.69.5-1.7.03-1.7-.8z" fill="#111"/>
+      <path d="M3.18 20.55L13.41 12 3.18 3.45v17.1z" fill="#EA4335"/>
+      <path d="M3.18 3.45L13.41 12l3.12-3.12-10.65-6.03c-.57-.33-1.29-.26-1.7.6z" fill="#FBBC04"/>
+      <path d="M3.18 20.55c.41.86 1.13.93 1.7.6l10.65-6.03L13.41 12 3.18 20.55z" fill="#34A853"/>
+      <path d="M16.53 8.88L13.41 12l3.12 3.12 2.77-1.57c.79-.45.79-1.65 0-2.1L16.53 8.88z" fill="#4285F4"/>
+    </svg>
+    <span class="play-btn-text">
+      <small>Disponível no</small>
+      Google Play
+    </span>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">G-CONSTRUTOR</div>
+  <div class="footer-copy">© 2026 Construtora Garra. Todos os direitos reservados.</div>
+</footer>
